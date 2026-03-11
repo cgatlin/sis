@@ -1,4 +1,5 @@
-![Fantasy Institute of Technology Logo](docs/images/logo.png) Fantasy Institute of Technology
+<img src="docs/images/logo.png" width="150" alt="Fantasy Institute of Technology Logo">
+**Fantasy Institute of Technology**
 Student Information System
 
 Portfolio Project – Backend Development
@@ -7,7 +8,7 @@ A web-based Student Information System (SIS) designed for the fictional Fantasy 
 
 This project simulates common features found in real educational management systems, including student enrollment, course management, grade tracking, and faculty administration.
 
-Features
+## Features
 
 Student profile management
 
@@ -40,7 +41,7 @@ Planned features:
 
 
 
-Project Purpose
+**Project Purpose**
 
 This project was created as a portfolio piece to demonstrate:
 
@@ -58,12 +59,12 @@ The fictional Fantasy Institute of Technology environment allows the system to s
 
 ## Dashboard
 
-![Dashboard]()
+image placeholder
 
 ## Student Management
 
-![Students]()
+image placeholder
 
 ## Course Management
 
-![Courses]()
+image placeholder
