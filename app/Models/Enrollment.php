@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Database\Factories\EnrollmentFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Enrollment extends Model
 {
     //
-    /** @use HasFactory<\Database\Factories\EnrollmentFactory> */
+    /** @use HasFactory<EnrollmentFactory> */
     use HasFactory;
 }

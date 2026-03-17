@@ -23,7 +23,7 @@ class CourseFactory extends Factory
             'description' => fake()->paragraph(),
             'credits' => fake()->numberBetween(1, 5),
             'User' => User::factory(),
-            'semester' => fake()->randomElement(['Fall', 'Spring', 'Summer','Winter']),
+            'semester' => fake()->randomElement(['Fall', 'Spring', 'Summer', 'Winter']),
             'year' => fake()->year(),
         ];
     }
