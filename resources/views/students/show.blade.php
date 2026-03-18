@@ -20,13 +20,13 @@
 </div>
 
 <div>
-    <a href="/students/{{ $student->id }}/edit">Edit Student</a>
+    <a href="/students/{{ $student->id }}/edit">Edit</a>
 
     <form action="/students/{{ $student->id }}" method="POST" style="display: inline-block;">
         @csrf
         @method('DELETE')
 
-        <button type="submit">Delete Student</button>
+        <button type="submit">Delete</button>
     </form>
 </div>
 
