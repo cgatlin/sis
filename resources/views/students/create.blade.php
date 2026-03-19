@@ -1,10 +1,6 @@
 <x-layout title='FIT - Student Create'>
 
 <div>
-    <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
-</div>
-
-<div>
     <h1>Create New Student</h1>
 
     <form action="/students" method="POST">

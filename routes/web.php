@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('home'));
@@ -12,3 +13,11 @@ Route::get('/students/{student}', [StudentController::class, 'show']);
 Route::get('/students/{student}/edit', [StudentController::class, 'edit']);
 Route::patch('/students/{student}', [StudentController::class, 'update']);
 Route::delete('/students/{student}', [StudentController::class, 'destroy']);
+
+Route::get('/staff', [UserController::class, 'index']);
+Route::get('/staff/create', [UserController::class, 'create']);
+Route::post('/staff', [UserController::class, 'store']);
+Route::get('/staff/{user}', [UserController::class, 'show']);
+Route::get('/staff/{user}/edit', [UserController::class, 'edit']);
+Route::patch('/staff/{user}', [UserController::class, 'update']);
+Route::delete('/staff/{user}', [UserController::class, 'destroy']);

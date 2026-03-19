@@ -5,10 +5,6 @@
 <x-layout title='FIT - EDit Student'>
 
 <div>
-    <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
-</div>
-
-<div>
     <h1>Edit Student</h1>
 
     <form action="/students/{{ $student->id }}" method="POST">

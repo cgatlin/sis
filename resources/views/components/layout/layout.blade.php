@@ -27,7 +27,7 @@
         <main class="main-content text-center">
             {{ $slot }}
         </main>    
-        <footer class="footer place-items-end p-4 bg-neutral text-neutral-content">
+        <footer class="footer place-items-end p-4 bg-secondary text-neutral-content">
             <a href="/about">About Us</a>
         </footer>
     </body>

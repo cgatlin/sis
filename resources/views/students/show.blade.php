@@ -4,10 +4,6 @@
 <x-layout title='FIT - Student Details'>
 
 <div>
-    <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
-</div>
-
-<div>
     <h1>{{ $student->first_name }} {{ $student->middle_name }} {{ $student->last_name }}</h1>
     
     <h1>Courses Enrolled:</h1>
