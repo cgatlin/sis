@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Student;
+use App\Models\User;
 
 it('can render', function () {
     $students = Student::factory()->count(3)->create();
@@ -11,6 +12,8 @@ it('can render', function () {
 });
 
 it('Creates a student', function () {
+    $this->actingAs($user = User::factory()->create());
+
     visit('/students/create')
         ->fill('first_name', 'John')
         ->fill('last_name', 'Doe')
@@ -23,6 +26,7 @@ it('Creates a student', function () {
 });
 
 it('Edit a student', function () {
+    $this->actingAs($user = User::factory()->create());
     $student = Student::factory()->create();
 
     visit("/students/{$student->id}")
@@ -36,6 +40,7 @@ it('Edit a student', function () {
 });
 
 it('Delete a student', function () {
+    $this->actingAs($user = User::factory()->create());
     $student = Student::factory()->create();
 
     visit("/students/{$student->id}")

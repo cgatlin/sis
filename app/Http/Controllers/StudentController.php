@@ -34,13 +34,6 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        //
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-        ]);
 
         Student::create($request->validated());
 
@@ -70,14 +63,6 @@ class StudentController extends Controller
      */
     public function update(StoreStudentRequest $request, Student $student)
     {
-        //
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-        ]);
-
         $student->update($request->validated());
 
         return redirect("/students/{$student->id}");

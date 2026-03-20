@@ -34,12 +34,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'password' => 'required|string|max:255',
-        ]);
 
         User::create($request->validated());
 
@@ -69,11 +63,6 @@ class UserController extends Controller
      */
     public function update(StoreUserRequest $request, User $user)
     {
-        //
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-        ]);
 
         $user->update($request->validated());
 
