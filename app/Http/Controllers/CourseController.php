@@ -4,64 +4,100 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
+use App\Http\Requests\StoreCourseRequest;
 use Illuminate\Http\Request;
+use App\Models\Course;
+use App\Models\Student;
+use App\Models\User;
 
 class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): void
+    public function index()
     {
         //
+        $courses = Course::all();
+
+        return view('courses.index', ['courses' => $courses]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): void
+    public function create()
     {
         //
+        $teachers = User::where('role', 'teacher')->get();
+
+        return view('courses.create', ['teachers' => $teachers]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): void
+    public function store(StoreCourseRequest $request)
     {
         //
+
+        Course::create($request->validated());
+
+        return redirect('/courses');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Course $courses): void
+    public function show(Course $course)
     {
         //
+        $students = Student::all();
+
+        return view('courses.show', ['course' => $course, 'students' => $students]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Course $courses): void
+    public function edit(Course $course)
     {
         //
+        $teachers = User::where('role', 'teacher')->get();
+
+        return view('courses.edit', ['course' => $course, 'teachers' => $teachers]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Course $courses): void
+    public function update(StoreCourseRequest $request, Course $course)
     {
         //
+        $course->update($request->validated());
+
+        return redirect("/courses/{$course->id}");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Course $courses): void
+    public function destroy(Course $course)
     {
         //
+        $course->delete();
+
+        return redirect('/courses');
+    }
+
+    /**
+     * Update the specified resource to enroll a student.
+     */
+    public function enrollStudent(Request $request, Course $course)
+    {
+        //
+        $course->students()->syncWithoutDetaching([$request->selected_student]);
+
+        return redirect("/courses/{$course->id}");
     }
 }

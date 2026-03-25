@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -15,6 +16,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/students/{student}/edit', [StudentController::class, 'edit']);
     Route::patch('/students/{student}', [StudentController::class, 'update']);
     Route::delete('/students/{student}', [StudentController::class, 'destroy']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/courses', [CourseController::class, 'index']);
+    Route::get('/courses/create', [CourseController::class, 'create']);
+    Route::post('/courses', [CourseController::class, 'store']);
+    Route::get('/courses/{course}', [CourseController::class, 'show']);
+    Route::get('/courses/{course}/edit', [CourseController::class, 'edit']);
+    Route::patch('/courses/{course}', [CourseController::class, 'update']);
+    Route::post('/courses/{course}/enroll-student', [CourseController::class, 'enrollStudent']);
+    Route::delete('/courses/{course}', [CourseController::class, 'destroy']);
 });
 
 Route::middleware('auth')->group(function () {
