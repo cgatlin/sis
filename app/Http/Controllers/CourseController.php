@@ -52,7 +52,9 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
-        $students = Student::all();
+        $students = Student::whereDoesntHave('courses', function ($query) use ($course) {
+            $query->where('course_id', $course->id);
+        })->get();
 
         return view('courses.show', ['course' => $course, 'students' => $students]);
     }
@@ -97,6 +99,14 @@ class CourseController extends Controller
     {
         //
         $course->students()->syncWithoutDetaching([$request->selected_student]);
+
+        return redirect("/courses/{$course->id}");
+    }
+
+    public function removeStudent(Course $course, Student $student)
+    {
+        //
+        $course->students()->detach($student->id);
 
         return redirect("/courses/{$course->id}");
     }

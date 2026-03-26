@@ -51,7 +51,12 @@
         </form>
     </h1>
     @foreach ($course->students as $student )
-        <div>{{ $student->first_name }} {{ $student->middle_name }} {{ $student->last_name }}</div>
+        <div>{{ $student->first_name }} {{ $student->middle_name }} {{ $student->last_name }}
+            <form action="/courses/{{ $course->id }}/remove-student/{{ $student->id }}" method="POST">
+                @csrf
+                <button type="submit">Remove Student</button>
+            </form>
+        </div>
     @endforeach
 
 </div>
