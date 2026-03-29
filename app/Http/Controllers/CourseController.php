@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCourseRequest;
-use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {

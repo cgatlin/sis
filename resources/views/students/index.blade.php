@@ -3,10 +3,17 @@
 ])
 
 <x-layout title='FIT - Students List'>
+    <div class="bg-secondary p-4">
+        <h1 class="text-xl">List of Students</h1>
+        <a class="btn btn-xs btn-accent text-neutral" href="/students/create">Create New Student</a>
+    </div>
 
-@foreach ($students as $student)
-    <div><a href="/students/{{ $student->id }}">{{ $student->last_name }}, {{ $student->first_name }} {{ $student->middle_name }}</a></div>
-@endforeach
-
+    <ul class="list rounded-box shadow-md flex items-center justify-center">
+    @foreach ($students as $student)
+        <li class="list-row shadow">
+            <a href="/students/{{ $student->id }}">{{ $student->last_name }}, {{ $student->first_name }} {{ $student->middle_name }}</a>
+        </li>
+    @endforeach
+    </ul>
 
 </x-layout>

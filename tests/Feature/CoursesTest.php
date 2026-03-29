@@ -53,7 +53,7 @@ it('Edit a course', function () {
         ->assertSee('CIS 101 - Intro to Computers')
         ->assertSee('Winter - 2026: 25 Credits')
         ->assertSee($teacher->name)
-        ->assertSee('description', 'Wonderful World of Computers');
+        ->assertSee('Wonderful World of Computers');
 
 });
 
@@ -75,7 +75,7 @@ it('Enroll a student', function () {
     Student::factory()->count(2)->create();
 
     visit("/courses/{$course->id}")
-        ->type('student', "{$student->first_name} {$student->middle_name} {$student->last_name}" )
+        ->type('student', "{$student->first_name} {$student->middle_name} {$student->last_name}")
         ->assertValue('student', "{$student->first_name} {$student->middle_name} {$student->last_name}")
         ->assertValue('selected_student', $student->id)
         ->click('Add Student')

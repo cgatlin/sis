@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses/{course}/edit', [CourseController::class, 'edit']);
     Route::patch('/courses/{course}', [CourseController::class, 'update']);
     Route::post('/courses/{course}/enroll-student', [CourseController::class, 'enrollStudent']);
-    Route::post('/courses/{course}/remove-student/{student}', [CourseController::class, 'removeStudent']);
+    Route::delete('/courses/{course}/remove-student/{student}', [CourseController::class, 'removeStudent']);
     Route::delete('/courses/{course}', [CourseController::class, 'destroy']);
 });
 

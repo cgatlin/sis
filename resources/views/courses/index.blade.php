@@ -3,10 +3,17 @@
 ])
 
 <x-layout title='FIT - Courses List'>
+    <div class="bg-secondary p-4">
+        <h1 class="text-xl">List of Courses</h1>
+        <a class="btn btn-xs btn-accent text-neutral" href="/courses/create">Create New Course</a>
+    </div>
 
-@foreach ($courses as $course)
-    <div><a href="/courses/{{ $course->id }}">{{ $course->course_code }}, {{ $course->course_name }}</a></div>
-@endforeach
-
+    <ul class="list rounded-box shadow-md flex items-center justify-center">
+    @foreach ($courses as $course)
+        <li class="list-row shadow">
+            <a href="/courses/{{ $course->id }}">{{ $course->course_code }}, {{ $course->course_name }}</a>
+        </li>
+    @endforeach
+    </ul>
 
 </x-layout>
