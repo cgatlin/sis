@@ -10,8 +10,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ $title }}</title>
-        @vite('resources/css/app.css', 'resourses/js/app.js')
-
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+       
         <!-- Fonts -->
         
         <!-- Styles / Scripts -->

@@ -31,9 +31,9 @@ Role-based authentication (Admin / Faculty / Student)
 
 Planned features:
 
-- [ ] Student CRUD system
-- [ ] Instructor/Staff management
-- [ ] Course enrollment
+- [x] Student CRUD system
+- [x] Instructor/Staff management
+- [x] Course enrollment
 - [ ] Gradebook module
 - [ ] Transcript generation
 - [ ] GPA calculator
