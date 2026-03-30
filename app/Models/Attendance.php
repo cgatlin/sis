@@ -22,4 +22,14 @@ class Attendance extends Model
     protected $attributes = [
         'status' => AttendanceStatus::PRESENT,
     ];
+    
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+    public function classroom()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
