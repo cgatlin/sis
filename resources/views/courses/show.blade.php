@@ -64,9 +64,12 @@
         </script>
         
     </form>
-    <h1>{{ $course->students->count() }} Currently Enrolled Students:</h1>
+    <h1>
+        {{ $course->students->count() }} Currently Enrolled Students:
+        
+    </h1>
     <div class="overflow-x-auto place-items-center justify-center">
-        <table class="table table-zebra  w-90">
+        <table class="table table-zebra w-90">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -89,6 +92,10 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+    <div class="place-items-end p-2">
+        <a class="btn btn-xs btn-secondary text-neutral " href="/courses/{{ $course->id }}/attendance/create">Take Attendance</a>
+        <a class="btn btn-xs btn-secondary text-neutral " href="/courses/{{ $course->id }}/attendance">View all Attendance</a>
     </div>
 </div>
 

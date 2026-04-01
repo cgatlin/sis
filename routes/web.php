@@ -3,10 +3,12 @@
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('home'));
+Route::get('/about', fn () => view('about'));
 
 Route::middleware('auth')->group(function () {
     Route::get('/students', [StudentController::class, 'index']);
@@ -28,6 +30,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses/{course}/enroll-student', [CourseController::class, 'enrollStudent']);
     Route::delete('/courses/{course}/remove-student/{student}', [CourseController::class, 'removeStudent']);
     Route::delete('/courses/{course}', [CourseController::class, 'destroy']);
+
+    Route::get('/courses/{course}/attendance', [AttendanceController::class, 'index']);
+    Route::get('/courses/{course}/attendance/create', [AttendanceController::class, 'create']);
+    Route::post('/courses/{course}/attendance', [AttendanceController::class, 'store']);
+    Route::get('/courses/{course}/attendance/view', [AttendanceController::class, 'show']);
+    Route::get('/courses/{course}/attendance/edit', [AttendanceController::class, 'edit']);
+    Route::patch('/courses/{course}/attendance', [AttendanceController::class, 'update']);
+
 });
 
 Route::middleware('auth')->group(function () {
