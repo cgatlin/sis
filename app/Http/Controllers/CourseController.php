@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCourseRequest;
+use App\Models\Attendance;
 use App\Models\Course;
+use App\AttendanceStatus;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -109,5 +112,38 @@ class CourseController extends Controller
         $course->students()->detach($student->id);
 
         return redirect("/courses/{$course->id}");
+    }
+
+    public function studentReport(Course $course)
+    {
+        $students = $course->students;
+
+        return view('report.student', compact('course', 'students'));
+    }
+
+    public function attendanceReport(Request $request, Course $course)
+    {
+    
+        $query = Attendance::where('course_id', $course->id)
+        ->with('student');
+
+        $dateStart = null;
+        $dateEnd = null;
+
+        if ($request->start_date && $request->end_date) {
+            $query->whereBetween('attendance_date', [
+                $request->start_date,
+                $request->end_date
+            ]);
+
+            $dateStart = $request->start_date;
+            $dateEnd = $request->end_date;
+        }
+
+        $records = $query->get();
+
+
+        return view('report.attendance', compact('course', 'records', 'dateStart', 'dateEnd'));
+    
     }
 }

@@ -38,6 +38,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses/{course}/attendance/edit', [AttendanceController::class, 'edit']);
     Route::patch('/courses/{course}/attendance', [AttendanceController::class, 'update']);
 
+    Route::get('/courses/{course}/report/attendance', [CourseController::class, 'attendanceReport']);
+    Route::get('/courses/{course}/report/student', [CourseController::class, 'studentReport']);
+
 });
 
 Route::middleware('auth')->group(function () {

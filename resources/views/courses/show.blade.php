@@ -6,7 +6,13 @@
 <div>
     <div class="bg-secondary p-4">
         <h1>
-            <span class="uppercase">{{ $course->course_code }} - {{ $course->course_name }}</span>
+            <span class="uppercase">
+                {{ $course->course_code }} - {{ $course->course_name }}
+                <div class="flex justify-end gap-2">
+                    <a class="shadow btn btn-xs btn-accent text-neutral p-4" href="/courses/{{ $course->id }}/report/student">Student Report</a>
+                    <a class="shadow btn btn-xs btn-accent text-neutral p-4" href="/courses/{{ $course->id }}/report/attendance">Attendance Report</a>
+                </div>
+            </span>
             <div>
                 <a class="btn btn-xs btn-accent text-neutral" href="/courses/{{ $course->id }}/edit">Edit</a>
 
@@ -95,7 +101,7 @@
     </div>
     <div class="place-items-end p-2">
         <a class="btn btn-xs btn-secondary text-neutral " href="/courses/{{ $course->id }}/attendance/create">Take Attendance</a>
-        <a class="btn btn-xs btn-secondary text-neutral " href="/courses/{{ $course->id }}/attendance">View all Attendance</a>
+        <a class="btn btn-xs btn-secondary text-neutral " href="/courses/{{ $course->id }}/attendance">View Attendance by Date</a>
     </div>
 </div>
 
