@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\AttendanceStatus;
 use App\Models\Attendance;
 use App\Models\Course;
-use App\AttendanceStatus;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -18,10 +18,10 @@ class AttendanceController extends Controller
     {
         //
         $records = Attendance::where('course_id', $course->id)
-        ->groupby('attendance_date')
-        ->get();
+            ->groupby('attendance_date')
+            ->get();
 
-        return view('attendance.index', compact('records'));
+        return view('attendance.index', ['records' => $records]);
     }
 
     /**
@@ -32,7 +32,7 @@ class AttendanceController extends Controller
         //
         $students = $course->students;
 
-        return view('attendance.create', compact('course', 'students'));
+        return view('attendance.create', ['course' => $course, 'students' => $students]);
     }
 
     /**
@@ -80,9 +80,8 @@ class AttendanceController extends Controller
             ->where('attendance_date', $date)
             ->where('status', AttendanceStatus::ABSENT)
             ->count();
-        
 
-        return view('attendance.show', compact('course', 'records', 'date', 'presentCount', 'absentCount'));
+        return view('attendance.show', ['course' => $course, 'records' => $records, 'date' => $date, 'presentCount' => $presentCount, 'absentCount' => $absentCount]);
     }
 
     /**
@@ -98,7 +97,7 @@ class AttendanceController extends Controller
             ->with('student')
             ->get();
 
-        return view('attendance.edit', compact('course', 'records', 'date'));
+        return view('attendance.edit', ['course' => $course, 'records' => $records, 'date' => $date]);
     }
 
     /**
@@ -123,5 +122,4 @@ class AttendanceController extends Controller
 
         return redirect("/courses/$request->course_id");
     }
-
 }

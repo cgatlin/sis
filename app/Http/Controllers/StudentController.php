@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStudentRequest;
+use App\Models\Course;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -77,5 +79,34 @@ class StudentController extends Controller
         $student->delete();
 
         return redirect('/students');
+    }
+
+    public function enrollCourseCreate(Student $student)
+    {
+        //
+        $courses = Course::whereDoesntHave('students', function ($query) use ($student) {
+            $query->where('student_id', $student->id);
+        })->get();
+
+        return view('students.enroll', ['courses' => $courses, 'student' => $student]);
+    }
+
+    /**
+     * Update the specified resource to enroll a student.
+     */
+    public function enrollCourseStore(Request $request, Student $student)
+    {
+        //
+        $student->courses()->syncWithoutDetaching([$request->selected_course]);
+
+        return redirect("/students/{$student->id}/enroll-course");
+    }
+
+    public function removeCourse(Student $student, Course $course)
+    {
+        //
+        $student->courses()->detach($course->id);
+
+        return redirect("/students/{$student->id}/enroll-course");
     }
 }

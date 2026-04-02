@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         //
-         Schema::table('attendances', function (Blueprint $table) {
+        Schema::table('attendances', function (Blueprint $table) {
             $table->unique(['student_id', 'course_id', 'attendance_date']);
         });
     }

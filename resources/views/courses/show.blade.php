@@ -8,78 +8,45 @@
         <h1>
             <span class="uppercase">
                 {{ $course->course_code }} - {{ $course->course_name }}
-                <div class="flex justify-end gap-2">
-                    <a class="shadow btn btn-xs btn-accent text-neutral p-4" href="/courses/{{ $course->id }}/report/student">Student Report</a>
-                    <a class="shadow btn btn-xs btn-accent text-neutral p-4" href="/courses/{{ $course->id }}/report/attendance">Attendance Report</a>
-                </div>
             </span>
             <div>
-                <a class="btn btn-xs btn-accent text-neutral" href="/courses/{{ $course->id }}/edit">Edit</a>
+                <a class="btn btn-xs btn-accent" href="/courses/{{ $course->id }}/edit">Edit</a>
 
                 <form action="/courses/{{ $course->id }}" method="POST" style="display: inline-block;">
                     @csrf
                     @method('DELETE')
 
-                    <button class="btn btn-xs btn-error text-neutral" type="submit">Delete</button>
+                    <button class="btn btn-xs btn-error" type="submit">Delete</button>
                 </form>
             </div>
         </h1>
     </div>
+    <div class="bg-white shadow-md rounded px-8 pb-4 pt-2 mb-2">
 
-    <div>
-        <span>{{ $course->semester }} - {{ $course->year }}: {{ $course->credits }} Credits</span>
+        <div class="flex justify-center gap-2">
+            <a class="btn btn-xs btn-info" href="/courses/{{ $course->id }}/attendance/create">Take Attendance</a>
+            <a class="btn btn-xs btn-info" href="/courses/{{ $course->id }}/attendance">View Attendance by Date</a>
+    
+            <a class="shadow btn btn-xs btn-info" href="/courses/{{ $course->id }}/report/student">Student Report</a>
+            <a class="shadow btn btn-xs btn-info" href="/courses/{{ $course->id }}/report/attendance">Attendance Report</a>
+        </div>
+
+        <div>
+            <span>{{ $course->semester }} - {{ $course->year }}: {{ $course->credits }} Credits</span>
+        </div>
+        <div>Teacher: {{ $course->user->name }}</div>
+        <h1>Description:</h1>
+        <div>{{ $course->description }}</div>
     </div>
-    <div>Teacher: {{ $course->user->name }}</div>
-    <h1>Description:</h1>
-    <div>{{ $course->description }}</div>
-
-    <form class="bg-white shadow-md rounded px-8 pt-4 pb-4 mb-2 mt-2" action="/courses/{{ $course->id }}/enroll-student" method="POST" id="enroll_form">
-        @csrf
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="students">
-            <input class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="student" id="student" list="students" placeholder="Type to enroll student...">
-            <datalist id="students">
-                @foreach ($students as $student)
-                    <option data-id='{{ $student->id }}' value='{{ $student->first_name }} {{ $student->middle_name }} {{ $student->last_name }}'>
-                @endforeach
-            </datalist>
-            <button class="btn btn-xs btn-secondary text-neutral pl-2" type="submit">Add Student</button>
-        </label>
-        @if ($errors->has('student'))
-            <div> {{ $errors->first('student') }} </div>
-        @endif
-
-        <input type="hidden" name="selected_student" id="selected_student">
-        <script>
-            document.getElementById('student').addEventListener('input', function(e) {
-                var input = e.target;
-                var list = input.getAttribute('list');
-                var options = document.querySelectorAll('#' + list + ' option');
-                var hiddenInput = document.getElementById('selected_student');
-                var inputValue = input.value;
-
-                hiddenInput.value = ""; // Reset if no match
-
-                for (var i = 0; i < options.length; i++) {
-                    var option = options[i];
-                    if (option.value === inputValue) {
-                        hiddenInput.value = option.getAttribute('data-id');
-                        break;
-                    }
-                }
-            });
-        </script>
-        
-    </form>
     <h1>
         {{ $course->students->count() }} Currently Enrolled Students:
-        
+        <a class="btn btn-xs btn-soft btn-secondary" href="/courses/{{ $course->id }}/enroll-student">Enroll Students</a>
     </h1>
     <div class="overflow-x-auto place-items-center justify-center">
         <table class="table table-zebra w-90">
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
 
@@ -87,21 +54,10 @@
                 @foreach($course->students as $student)
                     <tr>
                         <td>{{ $student->first_name }} {{ $student->middle_name }} {{ $student->last_name }}</td>
-                        <td>
-                            <form action="/courses/{{ $course->id }}/remove-student/{{ $student->id }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-xs btn-error text-neutral" type="submit">Remove Student</button>
-                            </form>
-                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    </div>
-    <div class="place-items-end p-2">
-        <a class="btn btn-xs btn-secondary text-neutral " href="/courses/{{ $course->id }}/attendance/create">Take Attendance</a>
-        <a class="btn btn-xs btn-secondary text-neutral " href="/courses/{{ $course->id }}/attendance">View Attendance by Date</a>
     </div>
 </div>
 

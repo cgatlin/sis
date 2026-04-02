@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/students/{student}/edit', [StudentController::class, 'edit']);
     Route::patch('/students/{student}', [StudentController::class, 'update']);
     Route::delete('/students/{student}', [StudentController::class, 'destroy']);
+    Route::get('/students/{student}/enroll-course', [StudentController::class, 'enrollCourseCreate']);
+    Route::post('/students/{student}/enroll-course', [StudentController::class, 'enrollCourseStore']);
+    Route::delete('/students/{student}/remove-course/{course}', [StudentController::class, 'removeCourse']);
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -27,7 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses/{course}', [CourseController::class, 'show']);
     Route::get('/courses/{course}/edit', [CourseController::class, 'edit']);
     Route::patch('/courses/{course}', [CourseController::class, 'update']);
-    Route::post('/courses/{course}/enroll-student', [CourseController::class, 'enrollStudent']);
+    Route::get('/courses/{course}/enroll-student', [CourseController::class, 'enrollStudentCreate']);
+    Route::post('/courses/{course}/enroll-student', [CourseController::class, 'enrollStudentStore']);
     Route::delete('/courses/{course}/remove-student/{student}', [CourseController::class, 'removeStudent']);
     Route::delete('/courses/{course}', [CourseController::class, 'destroy']);
 

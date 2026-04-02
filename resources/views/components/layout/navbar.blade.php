@@ -5,7 +5,7 @@
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
         @guest
-            <li><a class="btn bg-primary text-black border-[#e5e5e5]" href="/login">Login</a></li>
+            <li><a class="btn btn-soft btn-secondary" href="/login">Login</a></li>
         @endguest
         @auth
             <li><a class="link link-secondary text-lg" href="/courses">Courses</a></li>

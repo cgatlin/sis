@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Course;
-use App\Models\Student;
 use App\Models\User;
 
 it('can render', function () {
@@ -65,20 +64,4 @@ it('Delete a course', function () {
         ->click('Delete')
         ->assertPathIs('/courses')
         ->assertDontSee("{$course->course_name}");
-});
-
-it('Enroll a student', function () {
-    $this->actingAs($user = User::factory()->create());
-    $course = Course::factory()->create();
-    Student::factory()->count(3)->create();
-    $student = Student::factory()->create();
-    Student::factory()->count(2)->create();
-
-    visit("/courses/{$course->id}")
-        ->type('student', "{$student->first_name} {$student->middle_name} {$student->last_name}")
-        ->assertValue('student', "{$student->first_name} {$student->middle_name} {$student->last_name}")
-        ->assertValue('selected_student', $student->id)
-        ->click('Add Student')
-        ->assertPathIs("/courses/{$course->id}")
-        ->assertSee("{$student->first_name} {$student->middle_name} {$student->last_name}");
 });

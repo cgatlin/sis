@@ -7,11 +7,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCourseRequest;
 use App\Models\Attendance;
 use App\Models\Course;
-use App\AttendanceStatus;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -95,15 +93,25 @@ class CourseController extends Controller
         return redirect('/courses');
     }
 
+    public function enrollStudentCreate(Course $course)
+    {
+        //
+        $students = Student::whereDoesntHave('courses', function ($query) use ($course) {
+            $query->where('course_id', $course->id);
+        })->get();
+
+        return view('courses.enroll', ['course' => $course, 'students' => $students]);
+    }
+
     /**
      * Update the specified resource to enroll a student.
      */
-    public function enrollStudent(Request $request, Course $course)
+    public function enrollStudentStore(Request $request, Course $course)
     {
         //
         $course->students()->syncWithoutDetaching([$request->selected_student]);
 
-        return redirect("/courses/{$course->id}");
+        return redirect("/courses/{$course->id}/enroll-student");
     }
 
     public function removeStudent(Course $course, Student $student)
@@ -111,21 +119,21 @@ class CourseController extends Controller
         //
         $course->students()->detach($student->id);
 
-        return redirect("/courses/{$course->id}");
+        return redirect("/courses/{$course->id}/enroll-student");
     }
 
     public function studentReport(Course $course)
     {
         $students = $course->students;
 
-        return view('report.student', compact('course', 'students'));
+        return view('report.student', ['course' => $course, 'students' => $students]);
     }
 
     public function attendanceReport(Request $request, Course $course)
     {
-    
+
         $query = Attendance::where('course_id', $course->id)
-        ->with('student');
+            ->with('student');
 
         $dateStart = null;
         $dateEnd = null;
@@ -133,7 +141,7 @@ class CourseController extends Controller
         if ($request->start_date && $request->end_date) {
             $query->whereBetween('attendance_date', [
                 $request->start_date,
-                $request->end_date
+                $request->end_date,
             ]);
 
             $dateStart = $request->start_date;
@@ -142,8 +150,7 @@ class CourseController extends Controller
 
         $records = $query->get();
 
+        return view('report.attendance', ['course' => $course, 'records' => $records, 'dateStart' => $dateStart, 'dateEnd' => $dateEnd]);
 
-        return view('report.attendance', compact('course', 'records', 'dateStart', 'dateEnd'));
-    
     }
 }
