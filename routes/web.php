@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+
     Route::get('/courses', [CourseController::class, 'index']);
     Route::get('/courses/create', [CourseController::class, 'create']);
     Route::post('/courses', [CourseController::class, 'store']);
