@@ -30,6 +30,19 @@ class DashboardController extends Controller
             ->where('status', AttendanceStatus::ABSENT)
             ->count();
 
-        return view('dashboard.index', ['studentsCount' => $studentsCount, 'coursesCount' => $coursesCount, 'teachersCount' => $teachersCount, 'presentToday' => $presentToday, 'absentToday' => $absentToday]);
+        $courses = Course::withCount('students')->get();
+
+        $labels = $courses->pluck('course_code');
+        $data = $courses->pluck('students_count');
+
+        return view('dashboard.index', [
+            'studentsCount' => $studentsCount,
+            'coursesCount' => $coursesCount,
+            'teachersCount' => $teachersCount,
+            'presentToday' => $presentToday,
+            'absentToday' => $absentToday,
+            'labels' => $labels,
+            'data' => $data
+            ]);
     }
 }
