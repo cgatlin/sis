@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class AttendanceSeeder extends Seeder
 {
@@ -20,7 +20,7 @@ class AttendanceSeeder extends Seeder
             while ($dates->count() < 10) {
                 $date = Carbon::now()->subDays(rand(1, 30))->toDateString();
                 $dates->push($date);
-                $dates = $dates->unique(); 
+                $dates = $dates->unique();
             }
 
             foreach ($dates as $date) {

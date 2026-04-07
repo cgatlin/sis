@@ -41,6 +41,7 @@
     <h1>
         {{ $course->students->count() }} Currently Enrolled Students:
         <a class="btn btn-xs btn-soft btn-secondary" href="/courses/{{ $course->id }}/enroll-student">Enroll Students</a>
+        <a class="btn btn-xs btn-info" href="/courses/{{ $course->id }}/export-student">Export Student List</a>
     </h1>
     <div class="overflow-x-auto place-items-center justify-center">
         <table class="table table-zebra w-90">

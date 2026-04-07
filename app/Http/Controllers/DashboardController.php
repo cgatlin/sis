@@ -32,7 +32,12 @@ class DashboardController extends Controller
 
         $courses = Course::withCount('students')->get();
 
-        $labels = $courses->pluck('course_code');
+        $labels = [];
+        foreach ($courses as $course) {
+            $labels[] = $course->course_code.'-'.$course->semester.':'.$course->year;
+        }
+
+        // $labels = $courses->pluck('course_code');
         $data = $courses->pluck('students_count');
 
         return view('dashboard.index', [
@@ -42,7 +47,46 @@ class DashboardController extends Controller
             'presentToday' => $presentToday,
             'absentToday' => $absentToday,
             'labels' => $labels,
-            'data' => $data
-            ]);
+            'data' => $data,
+        ]);
+    }
+
+    public function export()
+    {
+
+        $courses = Course::withCount('students')->get();
+
+        $labels = [];
+        $data = $courses->pluck('students_count', 'id');
+        foreach ($courses as $course) {
+            $labels[$course->id] = [
+                'label' => $course->course_code.'-'.$course->semester.':'.$course->year,
+                'count' => $data[$course->id],
+            ];
+        }
+
+        $fileName = 'course_distribution.csv';
+
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$fileName",
+        ];
+
+        $callback = function () use ($labels) {
+            $file = fopen('php://output', 'w');
+
+            fputcsv($file, ['Course', 'Count']);
+
+            foreach ($labels as $label) {
+                fputcsv($file, [
+                    $label['label'],
+                    $label['count'],
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

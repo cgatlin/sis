@@ -153,4 +153,67 @@ class CourseController extends Controller
         return view('report.attendance', ['course' => $course, 'records' => $records, 'dateStart' => $dateStart, 'dateEnd' => $dateEnd]);
 
     }
+
+    public function exportStudents(Course $course)
+    {
+        $fileName = 'students_course_'.$course->id.'.csv';
+
+        $students = $course->students;
+
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$fileName",
+        ];
+
+        $callback = function () use ($students) {
+            $file = fopen('php://output', 'w');
+
+            fputcsv($file, ['First Name', 'Middle Name', 'Last Name']);
+
+            foreach ($students as $student) {
+                fputcsv($file, [
+                    $student->first_name,
+                    $student->middle_name,
+                    $student->last_name,
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function exportAttendance(Course $course)
+    {
+        $fileName = 'attendance_class_'.$course->id.'.csv';
+
+        $records = Attendance::where('course_id', $course->id)
+            ->with('student')
+            ->orderBy('student_id', 'asc')
+            ->get();
+
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$fileName",
+        ];
+
+        $callback = function () use ($records) {
+            $file = fopen('php://output', 'w');
+
+            fputcsv($file, ['Student', 'Date', 'Status']);
+
+            foreach ($records as $record) {
+                fputcsv($file, [
+                    $record->student->first_name.' '.$record->student->middle_name.' '.$record->student->last_name,
+                    $record->attendance_date,
+                    $record->status,
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 }

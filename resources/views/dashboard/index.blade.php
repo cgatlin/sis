@@ -32,7 +32,7 @@
         </div>
 
 
-
+        <a class="btn btn-xs btn-info" href="/dashboard/export">Export Course Count</a>
         <!-- Charts Row -->
         <div class="grid grid-cols-2 gap-10">
 

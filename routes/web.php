@@ -10,8 +10,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => view('home'));
 Route::get('/about', fn () => view('about'));
+Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::post('/login', [SessionController::class, 'store']);
+Route::delete('/logout', [SessionController::class, 'destroy']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard/export', [DashboardController::class, 'export']);
+
     Route::get('/students', [StudentController::class, 'index']);
     Route::get('/students/create', [StudentController::class, 'create']);
     Route::post('/students', [StudentController::class, 'store']);
@@ -22,11 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/students/{student}/enroll-course', [StudentController::class, 'enrollCourseCreate']);
     Route::post('/students/{student}/enroll-course', [StudentController::class, 'enrollCourseStore']);
     Route::delete('/students/{student}/remove-course/{course}', [StudentController::class, 'removeCourse']);
-
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
 
     Route::get('/courses', [CourseController::class, 'index']);
     Route::get('/courses/create', [CourseController::class, 'create']);
@@ -48,10 +49,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/courses/{course}/report/attendance', [CourseController::class, 'attendanceReport']);
     Route::get('/courses/{course}/report/student', [CourseController::class, 'studentReport']);
+    Route::get('/courses/{course}/export-student', [CourseController::class, 'exportStudents']);
+    Route::get('/courses/{course}/export-attendance', [CourseController::class, 'exportAttendance']);
 
-});
-
-Route::middleware('auth')->group(function () {
     Route::get('/staff', [UserController::class, 'index']);
     Route::get('/staff/create', [UserController::class, 'create']);
     Route::post('/staff', [UserController::class, 'store']);
@@ -59,8 +59,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/staff/{user}/edit', [UserController::class, 'edit']);
     Route::patch('/staff/{user}', [UserController::class, 'update']);
     Route::delete('/staff/{user}', [UserController::class, 'destroy']);
-});
 
-Route::get('/login', [SessionController::class, 'create'])->name('login');
-Route::post('/login', [SessionController::class, 'store']);
-Route::delete('/logout', [SessionController::class, 'destroy']);
+});
