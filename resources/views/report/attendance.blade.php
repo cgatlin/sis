@@ -26,6 +26,8 @@
         </h1>
     </div>
 
+    <a class="btn btn-xs btn-info" href="/courses/{{ $course->id }}/export-attendance">Export Attendance</a>
+
     <div class="overflow-x-auto place-items-center justify-center">
         <table class="table table-zebra w-90">
             <tr>

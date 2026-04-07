@@ -16,4 +16,6 @@
     @endforeach
     </ul>
 
+    {{ $students->links() }}
+
 </x-layout>
