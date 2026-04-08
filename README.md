@@ -59,25 +59,25 @@ The fictional Fantasy Institute of Technology environment allows the system to s
 
 ## Dashboard
 
-<img src="docs/images/dashboard-1.png" width="150" alt="Dashboard Screenshot 1">
+<img src="docs/images/dashboard-1.png" alt="Dashboard Screenshot 1">
 
-<img src="docs/images/dashboard-2.png" width="150" alt="Dashboard Screenshot 2">
+<img src="docs/images/dashboard-2.png" alt="Dashboard Screenshot 2">
 
 ## Student Management
 Paginated List of Students with searching functionality.
-<img src="docs/images/student-1.png" width="150" alt="Student Screenshot 1">
+<img src="docs/images/student-1.png" alt="Student Screenshot 1">
 View Student info including the current Courses enrolled in.
-<img src="docs/images/student-2.png" width="150" alt="Student Screenshot 2">
+<img src="docs/images/student-2.png" alt="Student Screenshot 2">
 Ability to Enroll and Remove from Courses.
-<img src="docs/images/student-3.png" width="150" alt="Student Screenshot 2">
+<img src="docs/images/student-3.png" alt="Student Screenshot 2">
 
 ## Course Management
 Listing of All Courses with Semester and Year filtering.
-<img src="docs/images/course-1.png" width="150" alt="Course Screenshot 1">
+<img src="docs/images/course-1.png" alt="Course Screenshot 1">
 Info of the Course including list of Students enrolled.
 Options to take Attendance, view all/previous Attendances, and Reports for Students and Attendance.
-<img src="docs/images/course-2.png" width="150" alt="Course Screenshot 2">
+<img src="docs/images/course-2.png" alt="Course Screenshot 2">
 View the Creatation of a Course.
-<img src="docs/images/course-3.png" width="150" alt="Course Screenshot 3">
+<img src="docs/images/course-3.png" alt="Course Screenshot 3">
 From Course info able to enroll or remove Students.
-<img src="docs/images/course-4.png" width="150" alt="Course Screenshot 4">
+<img src="docs/images/course-4.png" alt="Course Screenshot 4">
