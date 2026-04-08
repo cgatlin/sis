@@ -4,6 +4,7 @@ use App\Models\Course;
 use App\Models\User;
 
 it('can render', function () {
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $courses = Course::factory()->count(3)->create();
 
     $contents = $this->view('courses.index', ['courses' => $courses]);
@@ -12,7 +13,7 @@ it('can render', function () {
 });
 
 it('Creates a course', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $teacher = User::factory()->create();
 
     visit('/courses/create')
@@ -31,7 +32,7 @@ it('Creates a course', function () {
 });
 
 it('Edit a course', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $teacher = User::factory()->create();
     $course = Course::factory()->create();
 
@@ -57,7 +58,7 @@ it('Edit a course', function () {
 });
 
 it('Delete a course', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $course = Course::factory()->create();
 
     visit("/courses/{$course->id}")

@@ -7,16 +7,18 @@
     <div class="bg-secondary p-4">
         <h1>
             <span class="uppercase">{{ $student->first_name }} {{ $student->middle_name }} {{ $student->last_name }}</span>
-            <div>
-                <a class="btn btn-xs btn-accent" href="/students/{{ $student->id }}/edit">Edit</a>
+            @if (auth()->user()->role === 'admin')
+                <div>
+                    <a class="btn btn-xs btn-accent" href="/students/{{ $student->id }}/edit">Edit</a>
 
-                <form action="/students/{{ $student->id }}" method="POST" style="display: inline-block;">
-                    @csrf
-                    @method('DELETE')
+                    <form action="/students/{{ $student->id }}" method="POST" style="display: inline-block;">
+                        @csrf
+                        @method('DELETE')
 
-                    <button class="btn btn-xs btn-error" type="submit">Delete</button>
-                </form>
-            </div>
+                        <button class="btn btn-xs btn-error" type="submit">Delete</button>
+                    </form>
+                </div>
+            @endif
         </h1>
     </div>
     

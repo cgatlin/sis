@@ -3,6 +3,7 @@
 use App\Models\User;
 
 it('can render', function () {
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $staff = User::factory()->count(3)->create();
 
     $contents = $this->view('staff.index', ['staff' => $staff]);
@@ -11,7 +12,7 @@ it('can render', function () {
 });
 
 it('Creates a user', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     visit('/staff/create')
         ->fill('name', 'John G Smith')
         ->fill('email', 'JSmith@fit.edu')
@@ -22,7 +23,7 @@ it('Creates a user', function () {
 });
 
 it('Edit a user', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $user = User::factory()->create();
 
     visit("/staff/{$user->id}")
@@ -36,7 +37,7 @@ it('Edit a user', function () {
 });
 
 it('Delete a user', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $user = User::factory()->create();
 
     visit("/staff/{$user->id}")

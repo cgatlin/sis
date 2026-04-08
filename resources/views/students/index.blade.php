@@ -5,7 +5,9 @@
 <x-layout title='FIT - Students List'>
     <div class="bg-secondary p-4">
         <h1 class="text-xl">List of Students</h1>
-        <a class="btn btn-xs btn-accent text-neutral" href="/students/create">Create New Student</a>
+        @if (auth()->user()->role === 'admin')
+            <a class="btn btn-xs btn-accent text-neutral" href="/students/create">Create New Student</a>
+        @endif
     </div>
 
     <ul class="list rounded-box shadow-md flex items-center justify-center">
@@ -16,6 +18,8 @@
     @endforeach
     </ul>
 
-    {{ $students->links() }}
+    @if ($students instanceof \Illuminate\Pagination\LengthAwarePaginator)
+        {{ $students->links() }}
+    @endif
 
 </x-layout>

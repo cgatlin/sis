@@ -9,16 +9,19 @@
             <span class="uppercase">
                 {{ $course->course_code }} - {{ $course->course_name }}
             </span>
-            <div>
-                <a class="btn btn-xs btn-accent" href="/courses/{{ $course->id }}/edit">Edit</a>
+            @if (auth()->user()->role === 'admin')
+                <div>
+                    <a class="btn btn-xs btn-accent" href="/courses/{{ $course->id }}/edit">Edit</a>
 
-                <form action="/courses/{{ $course->id }}" method="POST" style="display: inline-block;">
-                    @csrf
-                    @method('DELETE')
+                    <form action="/courses/{{ $course->id }}" method="POST" style="display: inline-block;">
+                        @csrf
+                        @method('DELETE')
 
-                    <button class="btn btn-xs btn-error" type="submit">Delete</button>
-                </form>
-            </div>
+                        <button class="btn btn-xs btn-error" type="submit">Delete</button>
+                    </form>
+                </div>
+            @endif
+            
         </h1>
     </div>
     <div class="bg-white shadow-md rounded px-8 pb-4 pt-2 mb-2">

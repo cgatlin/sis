@@ -5,7 +5,7 @@ use App\Models\Student;
 use App\Models\User;
 
 it('Enroll a Student from Course', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $course = Course::factory()->create();
     Student::factory()->count(3)->create();
     $student = Student::factory()->create();
@@ -23,7 +23,7 @@ it('Enroll a Student from Course', function () {
 });
 
 it('Enroll a student in a Course', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'teacher']));
     $course = Course::factory()->create();
     Student::factory()->count(3)->create();
     $student = Student::factory()->create();

@@ -4,6 +4,7 @@ use App\Models\Student;
 use App\Models\User;
 
 it('can render', function () {
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $students = Student::factory()->count(3)->create();
 
     $contents = $this->view('students.index', ['students' => $students]);
@@ -12,7 +13,7 @@ it('can render', function () {
 });
 
 it('Creates a student', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
 
     visit('/students/create')
         ->fill('first_name', 'John')
@@ -26,7 +27,7 @@ it('Creates a student', function () {
 });
 
 it('Edit a student', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $student = Student::factory()->create();
 
     visit("/students/{$student->id}")
@@ -40,7 +41,7 @@ it('Edit a student', function () {
 });
 
 it('Delete a student', function () {
-    $this->actingAs($user = User::factory()->create());
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
     $student = Student::factory()->create();
 
     visit("/students/{$student->id}")
