@@ -14,13 +14,24 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         // $students = Student::all();
-        $students = Student::paginate(10);
+        // $students = Student::paginate(10);
+        $search = $request->input('search');
 
-        return view('students.index', ['students' => $students]);
+        $students = Student::when($search, function ($query, $search) {
+            if ($search) {
+                $query->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('middle_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%");
+            }
+
+            return $query;
+        })->paginate(10);
+
+        return view('students.index', ['students' => $students, 'search' => $search]);
     }
 
     /**

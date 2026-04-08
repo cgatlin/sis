@@ -16,12 +16,25 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $courses = Course::all();
+        $semester = $request->input('semester', 'All');
+        $year = $request->input('year', 'All');
 
-        return view('courses.index', ['courses' => $courses]);
+        $courses = Course::when($request, function ($query, $request) {
+            if ($request->semester && $request->semester !== 'All') {
+                $query->where('semester', $request->semester);
+            }
+
+            if ($request->year && $request->year !== 'All') {
+                $query->where('year', $request->year);
+            }
+
+            return $query;
+        })->get();
+
+        return view('courses.index', ['courses' => $courses, 'semester' => $semester, 'year' => $year]);
     }
 
     /**
