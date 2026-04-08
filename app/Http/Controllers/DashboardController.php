@@ -9,11 +9,12 @@ use App\Models\Attendance;
 use App\Models\Course;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         //
         $studentsCount = Student::count();
@@ -30,7 +31,19 @@ class DashboardController extends Controller
             ->where('status', AttendanceStatus::ABSENT)
             ->count();
 
-        $courses = Course::withCount('students')->get();
+        $query = Course::withCount('students');
+        $semester = $request->input('semester', 'All');
+        $year = $request->input('year', 'All');
+
+        if ($semester && $semester !== 'All') {
+            $query->where('semester', $semester);
+        }
+
+        if ($year && $year !== 'All') {
+            $query->where('year', $year);
+        }
+
+        $courses = $query->get();
 
         $labels = [];
         foreach ($courses as $course) {
@@ -48,6 +61,8 @@ class DashboardController extends Controller
             'absentToday' => $absentToday,
             'labels' => $labels,
             'data' => $data,
+            'semester' => $semester,
+            'year' => $year,
         ]);
     }
 

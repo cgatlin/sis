@@ -5,7 +5,9 @@
     'presentToday',
     'absentToday',
     'labels',
-    'data'
+    'data',
+    'semester' => 'All',
+    'year' => 'All'
 ])
 
 <x-layout title='FIT - DashBoard'>
@@ -33,6 +35,25 @@
 
 
         <a class="btn btn-xs btn-info" href="/dashboard/export">Export Course Count</a>
+
+        <div class="p-2">
+            <form class="" method="GET">
+                <label class="text-gray-700 text-sm font-bold mb-2" for="semester">Semester:
+                    <select class="select shadow bg-primary w-30" name="semester" id="semester">
+                        <option value="All" @selected(old('semester', $semester) == 'All')>All</option>
+                        <option value="Spring" @selected(old('semester', $semester) == 'Spring')>Spring</option>
+                        <option value="Summer" @selected(old('semester', $semester) == 'Summer')>Summer</option>
+                        <option value="Fall" @selected(old('semester', $semester) == 'Fall')>Fall</option>
+                        <option value="Winter" @selected(old('semester', $semester) == 'Winter')>Winter</option>
+                    </select>
+                </label>
+                <label class="text-gray-700 text-sm font-bold mb-2" for="year">Year:
+                    <input class="input shadow bg-primary w-30" type="int" name="year" value="{{ $year }}">
+                </label>
+                <button class="btn btn-xs btn-accent text-neutral" type="submit">Filter</button>
+            </form>
+        </div>
+
         <!-- Charts Row -->
         <div class="grid grid-cols-2 gap-10">
 
