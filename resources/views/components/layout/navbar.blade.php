@@ -1,6 +1,12 @@
-<div class="navbar bg-base-100 shadow-sm">
-  <div class="flex-1">
-    <a class="btn btn-ghost text-xl" href="/">FIT</a>
+<div class="navbar bg-base-100 shadow-sm p-4">
+  <div class="flex-1"> 
+    <a class="btn btn-ghost text-xl" href="/">
+      <img class="w-auto h-20" src="{{ asset('build/assets/img/mascot.png') }}" alt="logo">
+      <div>
+        <p>Fantasy Institute of Technology</p>
+        <p>Home of the Griffins!!!</p>
+      </div>
+    </a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">

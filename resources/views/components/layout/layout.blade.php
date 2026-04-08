@@ -29,8 +29,9 @@
         <main class="main-content text-center">
             {{ $slot }}
         </main>    
-        <footer class="footer place-items-end p-4 bg-secondary text-neutral-content">
-            <a href="/about">About Us</a>
+        <footer class="footer flex items-end justify-end p-4 bg-secondary">
+            <a class="link w-auto h-20 place-items-center" href="/about">About Us</a>
+            <img class="w-auto h-20" src="{{ asset('build/assets/img/logo.png') }}" alt="logo">
         </footer>
     </body>
 </html>
