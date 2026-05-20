@@ -81,3 +81,61 @@ View the Creatation of a Course.
 <img src="docs/images/course-3.png" alt="Course Screenshot 3">
 From Course info able to enroll or remove Students.
 <img src="docs/images/course-4.png" alt="Course Screenshot 4">
+
+# Installation
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/cgatlin/sis.git
+cd fit-student-system
+```
+## 2.Install Dependencies
+
+```bash
+composer install
+npm install
+```
+## 3. Create Enviroment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+## Database Setup (if NOT using sqlite)
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=fit_student_system
+DB_USERNAME=root
+DB_PASSWORD=
+```
+## Migration and Seeding
+
+```bash
+php artisan migrate:fresh --seed
+```
+## Build FrontEnd Assests
+
+```bash
+npm run build
+```
+## Start Server
+
+```bash
+php artisan serve
+```
+Application will run at:
+http://127.0.0.1:8000
+
+## Demo Login Credentials
+
+Admin:
+- webmaster@fit.edu
+- 12345678
+
+Teacher:
+- vfrizzle@fit.edu
+- 12345678
