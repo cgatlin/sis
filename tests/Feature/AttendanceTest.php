@@ -48,3 +48,24 @@ it('can edit attendance', function () {
         ->assertSee("{$student->last_name}, {$student->first_name} {$student->middle_name}")
         ->assertSee('absent');
 });
+
+it('shows attendance records and counts', function () {
+    $this->actingAs($user = User::factory()->create(['role' => 'admin']));
+    $course = Course::factory()->create();
+    $student = Student::factory()->create();
+
+    $course->students()->syncWithoutDetaching([$student]);
+    Attendance::create([
+        'student_id' => $student->id,
+        'course_id' => $course->id,
+        'attendance_date' => now()->toDateString(),
+        'status' => 'present',
+    ]);
+
+    visit('/courses/'.$course->id)
+        ->click('View Attendance by Date')
+        ->assertSee(now()->toDateString())
+        ->click(now()->toDateString())
+        ->assertSee('Present: 1, Absent: 0')
+        ->assertSee("{$student->last_name}, {$student->first_name} {$student->middle_name}");
+});
