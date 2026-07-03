@@ -15,21 +15,21 @@
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="name" name="name" placeholder="Full Name:" required value="{{ $user->name ?? '' }}">
             </label>
             @if ($errors->has('name'))
-                <div> {{ $errors->first('name') }} </div>
+                <div class="alert alert-error p-2 mb-2"> {{ $errors->first('name') }} </div>
             @endif
 
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" id="email" name="email" placeholder="Email:" value="{{ $user->email ?? '' }}">
             </label>
             @if ($errors->has('email'))
-                <div> {{ $errors->first('email') }} </div>
+                <div class="alert alert-error p-2 mb-2"> {{ $errors->first('email') }} </div>
             @endif
 
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                 <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" id="password" name="password" placeholder="Password:" value="{{ $user->password ?? '' }}">
             </label>
             @if ($errors->has('password'))
-                <div> {{ $errors->first('password') }} </div>
+                <div class="alert alert-error p-2 mb-2"> {{ $errors->first('password') }} </div>
             @endif
 
         <button class="btn btn-soft btn-secondary" type="submit">Save Update</button>

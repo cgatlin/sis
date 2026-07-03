@@ -35,9 +35,9 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'The first name is required.',
-            'name.string' => 'The first name must be a string.',
-            'name.max' => 'The first name may not be greater than 255 characters.',
+            'name.required' => 'Name is required.',
+            'name.string' => 'Name must be a string.',
+            'name.max' => 'Name may not be greater than 255 characters.',
             'email.required' => 'Email is required.',
             'email.email' => 'Must be an email',
             'email.max' => 'The email may not be greater than 255 characters.',
