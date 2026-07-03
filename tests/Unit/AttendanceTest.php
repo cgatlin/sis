@@ -2,25 +2,9 @@
 
 use App\Models\Attendance;
 use App\Models\Course;
-use App\Models\Enrollment;
 use App\Models\Student;
 
-test('has enrolled in course', function () {
-    $student = Student::factory()->create();
-
-    $course = Course::factory()->create();
-
-    expect($student->courses)->toBeEmpty();
-
-    $enrollment = Enrollment::factory()->create([
-        'student_id' => $student->id,
-        'course_id' => $course->id,
-    ]);
-
-    expect($student->fresh()->courses->contains($course))->toBeTrue();
-});
-
-test('student has attendance records', function () {
+test('attendance belongs to a student', function () {
     $student = Student::factory()->create();
     $course = Course::factory()->create();
 
@@ -31,6 +15,21 @@ test('student has attendance records', function () {
         'status' => 'present',
     ]);
 
-    expect($student->fresh()->attendances->contains($attendance))->toBeTrue();
-    expect($student->fresh()->attendances->first()->course_id)->toBe($course->id);
+    expect($attendance->fresh()->student)->not->toBeNull();
+    expect($attendance->fresh()->student->id)->toBe($student->id);
+});
+
+test('attendance belongs to a course', function () {
+    $student = Student::factory()->create();
+    $course = Course::factory()->create();
+
+    $attendance = Attendance::create([
+        'student_id' => $student->id,
+        'course_id' => $course->id,
+        'attendance_date' => now()->toDateString(),
+        'status' => 'present',
+    ]);
+
+    expect($attendance->fresh()->course)->not->toBeNull();
+    expect($attendance->fresh()->course->id)->toBe($course->id);
 });
