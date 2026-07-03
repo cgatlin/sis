@@ -25,7 +25,7 @@
             <button class="btn btn-xs btn-secondary text-neutral pl-2" type="submit">Add Student</button>
         </label>
         @if ($errors->has('student'))
-            <div> {{ $errors->first('student') }} </div>
+            <div class="alert alert-error p-2 mb-2"> {{ $errors->first('student') }} </div>
         @endif
 
         <input type="hidden" name="selected_student" id="selected_student">

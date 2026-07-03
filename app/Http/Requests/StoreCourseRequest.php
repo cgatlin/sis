@@ -27,7 +27,12 @@ class StoreCourseRequest extends FormRequest
         return [
             'course_code' => ['required', 'string', 'max:12'],
             'course_name' => ['required', 'string', 'max:255'],
-            'semester' => ['required', 'string', 'max:12'],
+            'semester' => [
+                'required',
+                'string',
+                'max:12',
+                Rule::in(['Spring', 'Summer', 'Fall', 'Winter'])
+                ],
             'year' => ['required', 'int'],
             'credits' => ['required', 'int'],
             'user' => [
@@ -44,6 +49,8 @@ class StoreCourseRequest extends FormRequest
     {
         return [
             'user.exists' => 'The selected user is not a valid teacher.',
+            'user.required' => 'The teacher field is required.',
+            'semester.in' => 'Not a valid Semester.'
         ];
     }
 }

@@ -14,7 +14,7 @@
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="course_code" name="course_code" placeholder="Course Code:" required>
         </label>
         @if ($errors->has('course_code'))
-            <div> {{ $errors->first('course_code') }} </div>
+            <div class="alert alert-error p-2 mb-2"> {{ $errors->first('course_code') }} </div>
         @endif
     
 
@@ -23,7 +23,7 @@
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" id="course_name" name="course_name" placeholder="Course Name:" required>
         </label>
         @if ($errors->has('course_name'))
-            <div> {{ $errors->first('course_name') }} </div>
+            <div class="alert alert-error p-2 mb-2"> {{ $errors->first('course_name') }} </div>
         @endif
 
 
@@ -37,7 +37,7 @@
             </select>
         </label>
         @if ($errors->has('semester'))
-            <div> {{ $errors->first('semester') }} </div>
+            <div class="alert alert-error p-2 mb-2"> {{ $errors->first('semester') }} </div>
         @endif
     
 
@@ -46,7 +46,7 @@
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="text" id="year" name="year" placeholder="Year:" required>
         </label>
         @if ($errors->has('year'))
-            <div> {{ $errors->first('year') }} </div>
+            <div class="alert alert-error p-2 mb-2"> {{ $errors->first('year') }} </div>
         @endif
     
 
@@ -55,7 +55,7 @@
             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  type="number" id="credits" name="credits" placeholder="Credits:" required>
         </label>
         @if ($errors->has('credits'))
-            <div> {{ $errors->first('credits') }} </div>
+            <div class="alert alert-error p-2 mb-2"> {{ $errors->first('credits') }} </div>
         @endif
     
 
@@ -69,7 +69,7 @@
             </datalist>
         </label>
         @if ($errors->has('user'))
-            <div> {{ $errors->first('user') }} </div>
+            <div class="alert alert-error p-2 mb-2"> {{ $errors->first('user') }} </div>
         @endif
 
         <input type="hidden" name="user" id="user">
@@ -97,10 +97,10 @@
             <textarea class="textarea shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" form ="course_form" name="description" id="taid" cols="35" wrap="soft" placeholder="Description:"></textarea>
         </label>
         @if ($errors->has('description'))
-            <div> {{ $errors->first('description') }} </div>
+            <div class="alert alert-error p-2 mb-2"> {{ $errors->first('description') }} </div>
         @endif
     
-        <button class="btn btn-soft btn-secondary" type="submit">Create Course</button>
+        <button class="btn btn-soft btn-secondary" type="submit" name="submit">Create Course</button>
     </form>
 </div>
 
