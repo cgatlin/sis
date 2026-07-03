@@ -213,3 +213,92 @@ it('errors Description field is required', function () {
         'description' => 'The description field is required.'
     ]);
 });
+
+//Students
+it('errors First Name field is required', function () {
+    
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    
+    $response = $this->actingAs($admin)
+        ->post('/students', [
+            'last_name' => 'Doe',
+            'date_of_birth' => now(), 
+        ]);
+
+    
+    $response->assertSessionHasErrors([
+        'first_name' => 'The first name is required.'
+    ]);
+});
+
+it('errors Last Name field is required', function () {
+    
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    
+    $response = $this->actingAs($admin)
+        ->post('/students', [
+            'first_name' => 'John',
+            'date_of_birth' => now(), 
+        ]);
+
+    
+    $response->assertSessionHasErrors([
+        'last_name' => 'The last name is required.'
+    ]);
+});
+
+it('errors Date field is required', function () {
+    
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    
+    $response = $this->actingAs($admin)
+        ->post('/students', [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+        ]);
+
+    
+    $response->assertSessionHasErrors([
+        'date_of_birth' => 'The date of birth is required.'
+    ]);
+});
+
+it('errors Date field is a date', function () {
+    
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    
+    $response = $this->actingAs($admin)
+        ->post('/students', [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'date_of_birth' => 'FakeDate', 
+        ]);
+
+    
+    $response->assertSessionHasErrors([
+        'date_of_birth' => 'The date of birth is not a valid date.'
+    ]);
+});
+
+//Staff
+it('errors Date field is a date', function () {
+    
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    
+    $response = $this->actingAs($admin)
+        ->post('/students', [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'date_of_birth' => 'FakeDate', 
+        ]);
+
+    
+    $response->assertSessionHasErrors([
+        'date_of_birth' => 'The date of birth is not a valid date.'
+    ]);
+});
